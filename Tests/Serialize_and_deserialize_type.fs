@@ -6,12 +6,11 @@ open Newtonsoft.Json
 open System.ComponentModel
 
 [<TypeConverter(typeof<ValueTypeConverter<ValueType,string>>)>]
-[<JsonConverter(typeof<ValueTypeJsonConverter<ValueType>>)>]
-[<CLIMutable>]
+[<JsonConverter(typeof<ValueTypeJsonConverter<ValueType, string>>)>]
 type ValueType={ Value:string }
 
 [<TypeConverter(typeof<ValueTypeConverter<CSharpyValueType,string>>)>]
-[<JsonConverter(typeof<ValueTypeJsonConverter<CSharpyValueType>>)>]
+[<JsonConverter(typeof<ValueTypeJsonConverter<CSharpyValueType, string>>)>]
 type CSharpyValueType(value:string)=
     member this.Value with get() = value
 

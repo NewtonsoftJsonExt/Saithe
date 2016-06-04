@@ -36,19 +36,18 @@ type ValueTypeConverter<'T, 'V>() =
         else base.ConvertTo(context, culture, value, destinationType)
 
 
-type public ValueTypeJsonConverter<'T>() = 
+type public ValueTypeJsonConverter<'T,'V>() = 
     inherit JsonConverter()
-    let c = TypeDescriptor.GetConverter(typeof<'T>)
-    let ParseValue v = c.ConvertFrom(v)
-    let ValueToString v = c.ConvertTo(v, typeof<string>)
+    let mapping = ValueTypeMapping<'T, 'V>()
+
     override this.CanConvert(objectType) = objectType = typeof<'T>
     
     override this.ReadJson(reader, objectType, existingValue, serializer) = 
         if (objectType = typeof<'T>) then 
-            let v = serializer.Deserialize<string>(reader)
-            ParseValue(v)
+            let v = serializer.Deserialize<'V>(reader)
+            mapping.Parse(v)
         else failwith ("Cant handle type")
     
     override this.WriteJson(writer, value, serializer) = 
-        if (value :? 'T) then writer.WriteValue(ValueToString(value :?> 'T))
+        if (value :? 'T) then writer.WriteValue(mapping.ToRaw(value :?> 'T))
         else failwith ("not implemented")
