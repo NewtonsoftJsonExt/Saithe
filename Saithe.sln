@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{AA5B01E2-C1F5-404C-A3DA-D699753CD1EA}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Saithe", "Saithe\Saithe.fsproj", "{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}"
+EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tests", "Tests\Tests.fsproj", "{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
