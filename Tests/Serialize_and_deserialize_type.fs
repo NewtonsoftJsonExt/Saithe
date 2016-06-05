@@ -5,20 +5,20 @@ open Saithe
 open Newtonsoft.Json
 open System.ComponentModel
 
-[<TypeConverter(typeof<ValueTypeConverter<ValueType,string>>)>]
+[<TypeConverter(typeof<ValueTypeConverter<ValueType>>)>]
 type ValueType={ Value:string }
 
-[<TypeConverter(typeof<ValueTypeConverter<IntValueType,int>>)>]
-[<JsonConverter(typeof<ValueTypeJsonConverter<IntValueType,int>>)>]
+[<TypeConverter(typeof<ValueTypeConverter<IntValueType>>)>]
+[<JsonConverter(typeof<ValueTypeJsonConverter<IntValueType>>)>]
 type IntValueType={ Value:int }
 
 
-[<TypeConverter(typeof<ValueTypeConverter<CSharpyValueType,string>>)>]
+[<TypeConverter(typeof<ValueTypeConverter<CSharpyValueType>>)>]
 type CSharpyValueType(value:string)=
     member this.Value with get() = value
 
-[<TypeConverter(typeof<ValueTypeConverter<CSharpyIntValueType,int>>)>]
-[<JsonConverter(typeof<ValueTypeJsonConverter<CSharpyIntValueType,int>>)>]
+[<TypeConverter(typeof<ValueTypeConverter<CSharpyIntValueType>>)>]
+[<JsonConverter(typeof<ValueTypeJsonConverter<CSharpyIntValueType>>)>]
 type CSharpyIntValueType(value:int)=
     member this.Value with get() = value
 

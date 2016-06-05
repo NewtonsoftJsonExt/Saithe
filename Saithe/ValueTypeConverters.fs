@@ -7,45 +7,48 @@ open System
 open System.Runtime.Serialization
 open System.Reflection
 
-type ValueTypeMapping<'T, 'V>() =
+type ValueTypeMapping<'T>() =
     let t = typeof<'T>
     let property = t.GetProperties()
                     |> Array.head
-    let ctor = t.GetConstructor([|typeof<'V>|]);
+    let v = property.PropertyType
+    let ctor = t.GetConstructor([|v|])
 
-    member this.Parse(value:'V) =
+    member this.PropertyType = v
+
+    member this.Parse(value:obj) =
         ctor.Invoke([|value|])
 
-    member this.ToRaw(value) : 'V=
-        property.GetValue(value, null) :?> 'V
+    member this.ToRaw(value) : obj=
+        property.GetValue(value, null)
 
-type ValueTypeConverter<'T, 'V>() = 
+type ValueTypeConverter<'T>() = 
     inherit TypeConverter()
-    let mapping = ValueTypeMapping<'T, 'V>()
+    let mapping = ValueTypeMapping<'T>()
 
     override this.CanConvertFrom(context, sourceType) = 
-        if (sourceType = typeof<'V>) then true
+        if (sourceType = mapping.PropertyType) then true
         else base.CanConvertFrom(context, sourceType)
     
     override this.ConvertFrom(context, culture, value) = 
-        if (value :? 'V) then mapping.Parse(value :?> 'V)
+        if (mapping.PropertyType = value.GetType()) then mapping.Parse(value)
         else base.ConvertFrom(context, culture, value)
     
     override this.ConvertTo(context, culture, value, destinationType) = 
-        if (destinationType = typeof<'V>) then mapping.ToRaw(value) :> obj
+        if (mapping.PropertyType =destinationType) then mapping.ToRaw(value)
         else base.ConvertTo(context, culture, value, destinationType)
 
 
-type public ValueTypeJsonConverter<'T,'V>() = 
+type public ValueTypeJsonConverter<'T>() = 
     inherit JsonConverter()
-    let mapping = ValueTypeMapping<'T, 'V>()
+    let mapping = ValueTypeMapping<'T>()
     let t = typeof<'T>
 
     override this.CanConvert(objectType) = objectType = t
     
     override this.ReadJson(reader, objectType, existingValue, serializer) = 
         if (objectType = t) then 
-            let v = serializer.Deserialize<'V>(reader)
+            let v = serializer.Deserialize(reader, mapping.PropertyType)
             mapping.Parse(v)
         else 
             //base.ReadJson(reader, objectType, existingValue, serializer)
