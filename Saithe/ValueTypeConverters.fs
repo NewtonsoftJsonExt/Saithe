@@ -39,15 +39,20 @@ type ValueTypeConverter<'T, 'V>() =
 type public ValueTypeJsonConverter<'T,'V>() = 
     inherit JsonConverter()
     let mapping = ValueTypeMapping<'T, 'V>()
+    let t = typeof<'T>
 
-    override this.CanConvert(objectType) = objectType = typeof<'T>
+    override this.CanConvert(objectType) = objectType = t
     
     override this.ReadJson(reader, objectType, existingValue, serializer) = 
-        if (objectType = typeof<'T>) then 
+        if (objectType = t) then 
             let v = serializer.Deserialize<'V>(reader)
             mapping.Parse(v)
-        else failwith ("Cant handle type")
+        else 
+            //base.ReadJson(reader, objectType, existingValue, serializer)
+            failwithf "Cant handle type %s, expects %s" (objectType.Name) (t.Name)
     
     override this.WriteJson(writer, value, serializer) = 
         if (value :? 'T) then writer.WriteValue(mapping.ToRaw(value :?> 'T))
-        else failwith ("not implemented")
+        else
+            //base.WriteJson(writer, value, serializer)
+            failwithf "Cant handle type %s, expects %s" (value.GetType().Name) (t.Name)
