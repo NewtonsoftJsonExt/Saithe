@@ -1,0 +1,6 @@
+﻿type project
+version 0.1.0
+summary
+    Serializing value types into json
+licenseurl http://opensource.org/licenses/MIT
+
