@@ -1,4 +1,4 @@
-﻿namespace Tests
+﻿namespace Tests.Serialize_and_deserialize_type
 open NUnit.Framework
 open System
 open Saithe
@@ -11,7 +11,6 @@ type ValueType={ Value:string }
 [<TypeConverter(typeof<ValueTypeConverter<IntValueType>>)>]
 [<JsonConverter(typeof<ValueTypeJsonConverter<IntValueType>>)>]
 type IntValueType={ Value:int }
-
 
 [<TypeConverter(typeof<ValueTypeConverter<CSharpyValueType>>)>]
 type CSharpyValueType(value:string)=
@@ -26,10 +25,12 @@ type CSharpyIntValueType(value:int)=
 [<CLIMutable>]
 type ValueContainer={ Value:ValueType; IntValue:IntValueType }
 
+
 [<Serializable>]
 type CSharpyValueContainer(value:CSharpyValueType, intValue: CSharpyIntValueType)=
     member val Value = value with get, set
     member val IntValue = intValue with get, set
+
 
 [<TestFixture>]
 type ``Serialize and deserialize type``() = 
@@ -59,3 +60,4 @@ type ``Serialize and deserialize type``() =
         let expected = @"{""Value"":""Mgr"",""IntValue"":1}"
         let result = JsonConvert.SerializeObject(CSharpyValueContainer(CSharpyValueType("Mgr"), CSharpyIntValueType(1)))
         Assert.AreEqual(expected, result)
+

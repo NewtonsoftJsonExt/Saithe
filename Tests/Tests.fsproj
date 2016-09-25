@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Serialize_and_deserialize_type.fs" />
+    <Compile Include="Handle_structs.fs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">
