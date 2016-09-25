@@ -9,18 +9,27 @@ open System.Reflection
 
 type ValueTypeMapping<'T>() =
     let t = typeof<'T>
-    let property = t.GetProperties()
-                    |> Array.head
-    let v = property.PropertyType
-    let ctor = t.GetConstructor([|v|])
+    let properties = t.GetProperties()
+                    |>Array.toList
+    let fields = t.GetFields()
+                    |>Array.filter (fun f->not f.IsStatic)
+                    |>Array.toList
+    let (getValue, propertyType)=
+        match properties, fields with
+        | [], [f]->(f.GetValue,f.FieldType)
+        | [p], []->((fun o->p.GetValue(o,null)), p.PropertyType)
+        | _, _ -> 
+            failwithf "Should have a single instance field or property"
 
-    member this.PropertyType = v
+    let ctor = t.GetConstructor([|propertyType|])
+
+    member this.PropertyType = propertyType
 
     member this.Parse(value:obj) =
         ctor.Invoke([|value|])
 
     member this.ToRaw(value) : obj=
-        property.GetValue(value, null)
+        getValue(value)
 
 type ValueTypeConverter<'T>() = 
     inherit TypeConverter()
