@@ -8,7 +8,6 @@ open System.ComponentModel
 [<TypeConverter(typeof<ValueTypeConverter<ValueType>>)>]
 type ValueType={ Value:string }
 
-[<TypeConverter(typeof<ValueTypeConverter<IntValueType>>)>]
 [<JsonConverter(typeof<ValueTypeJsonConverter<IntValueType>>)>]
 type IntValueType={ Value:int }
 
@@ -16,7 +15,6 @@ type IntValueType={ Value:int }
 type CSharpyValueType(value:string)=
     member this.Value with get() = value
 
-[<TypeConverter(typeof<ValueTypeConverter<CSharpyIntValueType>>)>]
 [<JsonConverter(typeof<ValueTypeJsonConverter<CSharpyIntValueType>>)>]
 type CSharpyIntValueType(value:int)=
     member this.Value with get() = value

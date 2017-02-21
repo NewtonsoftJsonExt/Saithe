@@ -23,5 +23,5 @@ type ``Serialize and deserialize struct type``() =
     [<Test>]
     member this.Struct_Newtonsoft_serialize()=
         let expected = @"{""Name"":""Mgr"",""Id"":1}"
-        let result = JsonConvert.SerializeObject({Name="Mgr"; Id=CustomerId(1)})
+        let result = JsonConvert.SerializeObject({Name="Mgr"; Id=CustomerId(1L)})
         Assert.AreEqual(expected, result)

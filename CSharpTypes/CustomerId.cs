@@ -5,13 +5,15 @@ using System.ComponentModel;
 
 namespace CSharpTypes
 {
-    [TypeConverter(typeof(ValueTypeConverter<CustomerId>))]
+    /// <summary>
+    /// Customer identifier, simple wrapper around long value. Since it wraps long we need to use the JsonConverter
+    /// </summary>
     [JsonConverter(typeof(ValueTypeJsonConverter<CustomerId>))]
     public struct CustomerId : IEquatable<CustomerId>
     {
-        public readonly int Value;
+        public readonly long Value;
 
-        public CustomerId(int value)
+        public CustomerId(long value)
         {
             this.Value = value;
         }

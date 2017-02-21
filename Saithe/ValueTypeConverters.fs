@@ -36,16 +36,15 @@ type ValueTypeConverter<'T>() =
     let mapping = ValueTypeMapping<'T>()
 
     override this.CanConvertFrom(context, sourceType) = 
-        if (sourceType = mapping.PropertyType) then true
-        else base.CanConvertFrom(context, sourceType)
-    
+        (sourceType = mapping.PropertyType)
     override this.ConvertFrom(context, culture, value) = 
-        if (mapping.PropertyType = value.GetType()) then mapping.Parse(value)
-        else base.ConvertFrom(context, culture, value)
-    
+        mapping.Parse(value)
+
+    override this.CanConvertTo(context, destinationType) = 
+        destinationType = mapping.PropertyType
+        && destinationType = typeof<string>
     override this.ConvertTo(context, culture, value, destinationType) = 
-        if (mapping.PropertyType =destinationType) then mapping.ToRaw(value)
-        else base.ConvertTo(context, culture, value, destinationType)
+        mapping.ToRaw(value)
 
 
 type public ValueTypeJsonConverter<'T>() = 
