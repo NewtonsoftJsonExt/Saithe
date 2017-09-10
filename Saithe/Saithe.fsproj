@@ -9,7 +9,7 @@
     <AssemblyName>Saithe</AssemblyName>
     <RootNamespace>Saithe</RootNamespace>
     <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <VersionPrefix>2.0.2</VersionPrefix>
+    <VersionPrefix>2.0.3</VersionPrefix>
     <VersionSuffix></VersionSuffix>
 
     <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
