@@ -8,7 +8,7 @@ open System.Runtime.Serialization
 open System.Reflection
 
 type ValueTypeMapping<'T>() =
-    let t = typeof<'T>
+    let t = typeof<'T>.GetTypeInfo()
     let properties = t.GetProperties()
                     |>Array.toList
     let fields = t.GetFields()

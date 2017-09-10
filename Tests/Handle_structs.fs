@@ -1,5 +1,5 @@
 ﻿namespace Tests.Handle_structs
-open NUnit.Framework
+open Xunit
 open System
 open Saithe
 open Newtonsoft.Json
@@ -25,18 +25,17 @@ type StructIntValueType=
 type StructValueContainer={ Value:StructValueType; IntValue:StructIntValueType }
 
 
-[<TestFixture>]
 type ``Serialize and deserialize struct type``() = 
 
-    [<Test>]
+    [<Fact>]
     member this.Struct_Newtonsoft()=
         let data = @"{""Value"":""Ctr"",""IntValue"":1}"
         let result = JsonConvert.DeserializeObject<StructValueContainer>(data);
-        Assert.AreEqual("Ctr", result.Value.Value)
-        Assert.AreEqual(1, result.IntValue.Value)
+        Assert.Equal("Ctr", result.Value.Value)
+        Assert.Equal(1, result.IntValue.Value)
 
-    [<Test>]
+    [<Fact>]
     member this.Struct_Newtonsoft_serialize()=
         let expected = @"{""Value"":""Mgr"",""IntValue"":1}"
         let result = JsonConvert.SerializeObject({Value=StructValueType("Mgr"); IntValue=StructIntValueType(1)})
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)

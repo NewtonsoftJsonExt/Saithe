@@ -1,5 +1,5 @@
 ﻿namespace Tests.Handle_csharp_types
-open NUnit.Framework
+open Xunit
 open System
 open Saithe
 open Newtonsoft.Json
@@ -9,19 +9,17 @@ open CSharpTypes
 [<CLIMutable>]
 type Customer={ Name:string; Id:CustomerId }
 
-
-[<TestFixture>]
 type ``Serialize and deserialize struct type``() = 
 
-    [<Test>]
+    [<Fact>]
     member this.Struct_Newtonsoft()=
         let data = @"{""Name"":""Ctr"",""Id"":1}"
         let result = JsonConvert.DeserializeObject<Customer>(data);
-        Assert.AreEqual("Ctr", result.Name)
-        Assert.AreEqual(1, result.Id.Value)
+        Assert.Equal("Ctr", result.Name)
+        Assert.Equal(1L, result.Id.Value)
 
-    [<Test>]
+    [<Fact>]
     member this.Struct_Newtonsoft_serialize()=
         let expected = @"{""Name"":""Mgr"",""Id"":1}"
         let result = JsonConvert.SerializeObject({Name="Mgr"; Id=CustomerId(1L)})
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)

@@ -1,6 +1,8 @@
 language: csharp
+dotnet: 2.0.0
 
 sudo: false 
 
 script: 
-  - bash ./build.sh test
+  - dotnet restore
+  - dotnet test Tests
