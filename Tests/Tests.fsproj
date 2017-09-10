@@ -6,7 +6,7 @@
     <PackageId>Tests</PackageId>
   </PropertyGroup>
     <ItemGroup>
-      <Compile Include="Parse_type.fs" />
+      <Compile Include="Parse_fs_type.fs" />
       <Compile Include="Parse_csharp_type.fs" />
       <Compile Include="Serialize_and_deserialize_type.fs" />
       <Compile Include="Handle_structs.fs" />

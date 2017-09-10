@@ -1,4 +1,4 @@
-﻿namespace Tests.Parse_type
+﻿namespace Tests.Parse_fs_type
 open Xunit
 open System
 open Saithe
@@ -19,7 +19,6 @@ with
 [<Serializable>]
 [<CLIMutable>]
 type PValueContainer={ V:ParseValueType; }
-
 
 type ``Parse type``() = 
 
