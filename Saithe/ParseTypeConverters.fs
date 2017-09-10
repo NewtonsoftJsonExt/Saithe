@@ -12,7 +12,10 @@ type ParseTypeConverter<'T>() = //when 'T : (static member parse : string -> 'T)
     override this.CanConvertFrom(context, sourceType) = 
         (strT = sourceType)
     override this.ConvertFrom(context, culture, value) = 
-        box (parse.Invoke(null,[|value :?> string|]))
+        try
+            box (parse.Invoke(null,[|value :?> string|]))
+        with
+            | :? TargetInvocationException as e -> raise (e.GetBaseException())
 
     override this.CanConvertTo(context, destinationType) =
         (strT = destinationType)

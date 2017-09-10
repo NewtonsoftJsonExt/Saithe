@@ -1,10 +1,7 @@
 ﻿namespace Saithe
 open System.ComponentModel
 open Newtonsoft.Json
-open System.Collections.Generic
-open System.Linq
 open System
-open System.Runtime.Serialization
 open System.Reflection
 
 type ValueTypeMapping<'T>() =

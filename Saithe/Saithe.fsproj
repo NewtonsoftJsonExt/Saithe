@@ -22,7 +22,6 @@
     <RepositoryUrl>https://github.com/NewtonsoftJsonExt/Saithe/</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="paket.template" />
     <Compile Include="ParseTypeConverters.fs" />
     <Compile Include="ValueTypeConverters.fs" />
   </ItemGroup>
