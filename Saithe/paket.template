@@ -1,9 +1,0 @@
-﻿type project
-version 2.0.1
-summary
-    Serializing value types into json
-licenseurl http://opensource.org/licenses/MIT
-releaseNotes 
-    Simpler API
-authors
-    wallymathieu
