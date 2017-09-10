@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{AA5B01
 		paket.dependencies = paket.dependencies
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Saithe", "Saithe\Saithe.fsproj", "{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}"
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Saithe", "Saithe\Saithe.fsproj", "{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}"
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tests", "Tests\Tests.fsproj", "{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D893E9C5-F60C-4FF2-BE6E-6840861C2619}"
 	ProjectSection(SolutionItems) = preProject
