@@ -4,6 +4,7 @@ open System
 open Saithe
 open Newtonsoft.Json
 open System.ComponentModel
+open System.Globalization
 exception ParseValueException of string
 
 [<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
@@ -51,3 +52,8 @@ type ``Parse type``() =
            c.ConvertFrom("Ctr") |> ignore
         ) |> ignore
 
+    [<Fact>]
+    member this.TypeConverter_deserialize_valid_data()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        let v = c.ConvertFrom("P_Mgr")
+        Assert.Equal({ Value = "Mgr" } ,v :?> ParseValueType)
