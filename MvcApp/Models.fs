@@ -26,6 +26,7 @@ let parseId prefix str =
     | Some g -> g
     | None -> raise (FormatException str)
 
+[<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<CustomerId>>)>]
 type CustomerId = 
     { Value : Guid }
@@ -33,6 +34,7 @@ type CustomerId =
     static member Parse(str : string) : CustomerId = { Value = parseId "c-" str }
     override this.ToString() = sprintf "c-%s" (toStr this.Value)
 
+[<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<ProductId>>)>]
 type ProductId = 
     { Value : Guid }
@@ -40,6 +42,7 @@ type ProductId =
     static member Parse(str : string) : ProductId = { Value = parseId "p-" str }
     override this.ToString() = sprintf "p-%s" (toStr this.Value)
 
+[<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<OrderId>>)>]
 type OrderId = 
     { Value : Guid }
