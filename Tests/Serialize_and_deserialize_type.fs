@@ -1,5 +1,5 @@
 ﻿namespace Tests.Serialize_and_deserialize_type
-open NUnit.Framework
+open Xunit
 open System
 open Saithe
 open Newtonsoft.Json
@@ -30,32 +30,31 @@ type CSharpyValueContainer(value:CSharpyValueType, intValue: CSharpyIntValueType
     member val IntValue = intValue with get, set
 
 
-[<TestFixture>]
 type ``Serialize and deserialize type``() = 
 
-    [<Test>]
+    [<Fact>]
     member this.Newtonsoft()=
         let data = @"{""Value"":""Ctr"",""IntValue"":1}"
         let result = JsonConvert.DeserializeObject<ValueContainer>(data);
         let expected = { Value = { Value = "Ctr" }; IntValue={Value=1}}
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)
 
-    [<Test>]
+    [<Fact>]
     member this.Newtonsoft_serialize()=
         let expected = @"{""Value"":""Mgr"",""IntValue"":1}"
         let result = JsonConvert.SerializeObject({ Value = { Value = "Mgr" }; IntValue={Value=1}})
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)
 
-    [<Test>]
+    [<Fact>]
     member this.CSharp_Newtonsoft()=
         let data = @"{""Value"":""Ctr"",""IntValue"":1}"
         let result = JsonConvert.DeserializeObject<CSharpyValueContainer>(data);
-        Assert.AreEqual("Ctr", result.Value.Value)
-        Assert.AreEqual(1, result.IntValue.Value)
+        Assert.Equal("Ctr", result.Value.Value)
+        Assert.Equal(1, result.IntValue.Value)
 
-    [<Test>]
+    [<Fact>]
     member this.CSharp_Newtonsoft_serialize()=
         let expected = @"{""Value"":""Mgr"",""IntValue"":1}"
         let result = JsonConvert.SerializeObject(CSharpyValueContainer(CSharpyValueType("Mgr"), CSharpyIntValueType(1)))
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)
 

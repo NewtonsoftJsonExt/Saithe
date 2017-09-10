@@ -1,5 +1,5 @@
 ﻿namespace Tests.Parse_type
-open NUnit.Framework
+open Xunit
 open System
 open Saithe
 open Newtonsoft.Json
@@ -20,23 +20,22 @@ with
 type PValueContainer={ V:ParseValueType; }
 
 
-[<TestFixture>]
 type ``Parse type``() = 
 
-    [<Test>]
+    [<Fact>]
     member this.Newtonsoft()=
         let data = @"{""V"":""P_Ctr""}"
         let result = JsonConvert.DeserializeObject<PValueContainer>(data);
         let expected = { V = { Value = "Ctr" } }
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)
 
-    [<Test>]
+    [<Fact>]
     member this.Newtonsoft_serialize()=
         let expected = @"{""V"":""P_Mgr""}"
         let result = JsonConvert.SerializeObject({ V = { Value = "Mgr" }})
-        Assert.AreEqual(expected, result)
+        Assert.Equal(expected, result)
 
-    [<Test>]
+    [<Fact>]
     member this.Newtonsoft_deserialize_invalid_data()=
         let data = @"{""V"":""Ctr""}"
         Assert.Throws<JsonSerializationException>( fun ()->

@@ -1,2 +1,3 @@
 build_script:
-  - build.cmd build
+  - dotnet restore
+  - dotnet test Tests
