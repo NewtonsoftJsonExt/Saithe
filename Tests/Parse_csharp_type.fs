@@ -32,3 +32,11 @@ type ``Parse type``() =
            JsonConvert.DeserializeObject<PValueContainer>(data) |> ignore
         ) |> ignore
 
+    [<Fact>]
+    member this.TypeConverter_deserialize_invalid_data()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+
+        Assert.Throws<ParseValueException>( fun ()->
+           c.ConvertFrom("Ctr") |> ignore
+        ) |> ignore
+

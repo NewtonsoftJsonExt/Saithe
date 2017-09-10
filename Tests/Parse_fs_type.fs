@@ -1,9 +1,10 @@
-﻿namespace Tests.Parse_type
+﻿namespace Tests.Parse_fs_type
 open Xunit
 open System
 open Saithe
 open Newtonsoft.Json
 open System.ComponentModel
+exception ParseValueException of string
 
 [<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
 type ParseValueType={ Value:string }
@@ -11,14 +12,13 @@ with
     static member Parse (str:string)= 
         match str.Split('_') |> Array.toList with
         | ["P";v] -> { Value=v }
-        | _ -> failwithf "Could not parse %s" str
+        | _ -> raise (ParseValueException str)
     override this.ToString()=
         sprintf "P_%s" this.Value
 
 [<Serializable>]
 [<CLIMutable>]
 type PValueContainer={ V:ParseValueType; }
-
 
 type ``Parse type``() = 
 
@@ -40,5 +40,14 @@ type ``Parse type``() =
         let data = @"{""V"":""Ctr""}"
         Assert.Throws<JsonSerializationException>( fun ()->
            JsonConvert.DeserializeObject<PValueContainer>(data) |> ignore
+        ) |> ignore
+
+
+    [<Fact>]
+    member this.TypeConverter_deserialize_invalid_data()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+
+        Assert.Throws<ParseValueException>( fun ()->
+           c.ConvertFrom("Ctr") |> ignore
         ) |> ignore
 
