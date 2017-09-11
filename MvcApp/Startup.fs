@@ -26,13 +26,6 @@ type Startup private () =
         i.Title <-"Current version"
         services.AddSwaggerGen(fun o -> 
             o.SwaggerDoc("v1", i)
-            for t in [typeof<CustomerId>; typeof<ProductId>; typeof<OrderId>] do
-                o.MapType(t, fun ()-> 
-                    let s = Schema()
-                    s.Type <- "string"
-                    s.Default <- Activator.CreateInstance(t).ToString()
-                    s
-                )|>ignore
         ) |> ignore
     
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
