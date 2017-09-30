@@ -5,7 +5,6 @@ open Saithe
 open Newtonsoft.Json
 open System.ComponentModel
 open System.Globalization
-exception ParseValueException of string
 
 [<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
 type ParseValueType={ Value:string }
@@ -13,7 +12,7 @@ with
     static member Parse (str:string)= 
         match str.Split('_') |> Array.toList with
         | ["P";v] -> { Value=v }
-        | _ -> raise (ParseValueException str)
+        | _ -> raise (FormatException str)
     override this.ToString()=
         sprintf "P_%s" this.Value
 
@@ -45,10 +44,10 @@ type ``Parse type``() =
 
 
     [<Fact>]
-    member this.TypeConverter_deserialize_invalid_data()=
+    member this.TypeConverter_deserialize_from_invalid_data()=
         let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
 
-        Assert.Throws<ParseValueException>( fun ()->
+        Assert.Throws<FormatException>( fun ()->
            c.ConvertFrom("Ctr") |> ignore
         ) |> ignore
 
@@ -57,3 +56,24 @@ type ``Parse type``() =
         let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
         let v = c.ConvertFrom("P_Mgr")
         Assert.Equal({ Value = "Mgr" } ,v :?> ParseValueType)
+
+    [<Fact>]
+    member this.TypeConverter_deserialize()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        c.ConvertTo("P_1", typeof<ParseValueType>) |> ignore
+
+    [<Fact>]
+    member this.TypeConverter_deserialize_to_invalid_data()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        Assert.Throws<FormatException>( fun ()->
+          c.ConvertTo("Ctr", typeof<ParseValueType>) |> ignore
+        ) |> ignore
+
+    [<Fact>]
+    member this.TypeConverter_convert_from_t()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        c.ConvertFrom({ Value = "1" }) |> ignore
+    [<Fact>]
+    member this.TypeConverter_convert_from_str()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        c.ConvertFrom("P_1") |> ignore
