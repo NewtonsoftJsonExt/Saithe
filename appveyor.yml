@@ -3,3 +3,6 @@ build_script:
   - dotnet build Tests
 test_script:
   - dotnet test Tests
+branches:
+  only: 
+    - master

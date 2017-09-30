@@ -11,6 +11,7 @@
       <Compile Include="Serialize_and_deserialize_type.fs" />
       <Compile Include="Handle_structs.fs" />
       <Compile Include="Handle_csharp_types.fs" />
+      <Compile Include="Handle_discriminated_union.fs" />
     </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Saithe\Saithe.fsproj" />

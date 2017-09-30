@@ -5,7 +5,7 @@ using Saithe;
 namespace CSharpTypes
 {
     [TypeConverter(typeof(ParseTypeConverter<ParseValueType>))]
-    public class ParseValueType: IEquatable<ParseValueType>
+    public class ParseValueType : IEquatable<ParseValueType>
     {
         public readonly string Value;
 
@@ -17,12 +17,12 @@ namespace CSharpTypes
         public static ParseValueType Parse(string value)
         {
             var res = value.Split('_');
-            if (res.Length != 2 && res[0] == "P") return new ParseValueType(res[1]);
-            throw new ParseValueException(value);
+            if (res.Length == 2 && res[0] == "P") return new ParseValueType(res[1]);
+            throw new ParseValueException($"Expected value to be in form: P_* but was '{value}'");
         }
 
-        public override string ToString()=> $"P_{Value}";
-        
+        public override string ToString() => $"P_{Value}";
+
         public override bool Equals(object obj)
         {
             return Value.Equals(obj as ParseValueType);

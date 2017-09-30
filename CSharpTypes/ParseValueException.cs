@@ -3,7 +3,7 @@
 namespace CSharpTypes
 {
     [System.Serializable]
-    public class ParseValueException : Exception
+    public class ParseValueException : FormatException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:MyException"/> class

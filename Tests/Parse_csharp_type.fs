@@ -33,10 +33,22 @@ type ``Parse type``() =
         ) |> ignore
 
     [<Fact>]
+    member this.TypeConverter_deserialize()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        c.ConvertTo("P_1", typeof<ParseValueType>) |> ignore
+
+    [<Fact>]
     member this.TypeConverter_deserialize_invalid_data()=
         let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
-
         Assert.Throws<ParseValueException>( fun ()->
-           c.ConvertFrom("Ctr") |> ignore
+          c.ConvertTo("Ctr", typeof<ParseValueType>) |> ignore
         ) |> ignore
 
+    [<Fact>]
+    member this.TypeConverter_convert_from_t()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        c.ConvertFrom(ParseValueType("1")) |> ignore
+    [<Fact>]
+    member this.TypeConverter_convert_from_str()=
+        let c = TypeDescriptor.GetConverter(typeof<ParseValueType>)
+        c.ConvertFrom("P_1") |> ignore
