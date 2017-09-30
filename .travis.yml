@@ -6,3 +6,7 @@ sudo: false
 script: 
   - dotnet restore
   - dotnet test Tests
+
+branches:
+  only: 
+    - master
