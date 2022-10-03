@@ -7,19 +7,7 @@ namespace CSharpTypes;
 /// </summary>
 [Newtonsoft.Json.JsonConverter(typeof(Saithe.NewtonsoftJson.ValueTypeJsonConverter<CustomerId>)),
  System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ValueTypeLongJsonConverter<CustomerId>))]
-public struct CustomerId : IEquatable<CustomerId>
+public record struct CustomerId(long Value)
 {
-    public readonly long Value;
-
-    public CustomerId(long value) => this.Value = value;
-
-    public readonly static CustomerId Empty = new CustomerId();
-
-    public bool Equals(CustomerId other) => Equals(Value, other.Value);
-
-    public override bool Equals(object obj) => obj is CustomerId id && Equals(id);
-
-    public override int GetHashCode() => Value.GetHashCode();
-
     public override string ToString() => Value.ToString();
 }

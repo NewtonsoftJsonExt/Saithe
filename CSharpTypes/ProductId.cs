@@ -6,19 +6,9 @@ namespace CSharpTypes;
 [TypeConverter(typeof(Saithe.ParseTypeConverter<ProductId>)),
  Newtonsoft.Json.JsonConverter(typeof(Saithe.NewtonsoftJson.ParseTypeJsonConverter<ProductId>)),
  System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ParseTypeJsonConverter<ProductId>))]
-public struct ProductId: IEquatable<ProductId>
+public record struct ProductId (long Value)
 {
-    public readonly long Value;
-
-    public ProductId(long value) => this.Value = value;
-
     public readonly static ProductId Empty = new ProductId();
-
-    public bool Equals(ProductId other) => Equals(Value, other.Value);
-
-    public override bool Equals(object obj) => obj is ProductId id && Equals(id);
-
-    public override int GetHashCode() => Value.GetHashCode();
 
     public override string ToString() => $"ProductId/{Value}";
 

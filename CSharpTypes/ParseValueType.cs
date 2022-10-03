@@ -1,17 +1,12 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace CSharpTypes;
 
 [TypeConverter(typeof(Saithe.ParseTypeConverter<ParseValueType>)),
  Newtonsoft.Json.JsonConverter(typeof(Saithe.NewtonsoftJson.ParseTypeJsonConverter<ParseValueType>)),
  System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ParseTypeJsonConverter<ParseValueType>))]
-public class ParseValueType : IEquatable<ParseValueType>
+public record ParseValueType (string Value)
 {
-    public readonly string Value;
-
-    public ParseValueType(string value) => Value = value;
-
     public static ParseValueType Parse(string value)
     {
         var res = value.Split('_');
@@ -20,10 +15,4 @@ public class ParseValueType : IEquatable<ParseValueType>
     }
 
     public override string ToString() => $"P_{Value}";
-
-    public override bool Equals(object obj) => this.Equals(obj as ParseValueType);
-
-    public override int GetHashCode() => Value.GetHashCode();
-
-    public bool Equals(ParseValueType other) => !ReferenceEquals(null, other) && Value.Equals(other.Value);
 }
