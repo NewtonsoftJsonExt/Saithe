@@ -2,24 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Saithe</PackageId>
-    <Authors>wallymathieu</Authors>
-    <Company></Company>
-    <Product>Saithe</Product>
-    <Description>Serializing value types into json</Description>
-    <AssemblyName>Saithe</AssemblyName>
-    <RootNamespace>Saithe</RootNamespace>
-    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <VersionPrefix>2.1.1</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
-
-    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
-    <Version Condition=" '$(VersionSuffix)' == '' ">$(VersionPrefix)</Version>
-    <AssemblyVersion>$(VersionPrefix).0</AssemblyVersion>
-    <FileVersion>$(VersionPrefix).0</FileVersion>
-
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageProjectUrl>https://github.com/NewtonsoftJsonExt/Saithe/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/NewtonsoftJsonExt/Saithe/</RepositoryUrl>
+    
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ParseTypeConverters.fs" />
