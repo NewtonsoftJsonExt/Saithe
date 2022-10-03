@@ -9,7 +9,7 @@ open Saithe
 open System.ComponentModel
 
 [<TypeConverter(typeof<ValueTypeConverter<StructValueType>>)>]
-[<JsonConverter(typeof<ValueTypeStringConverter<StructValueType>>)>]
+[<JsonConverter(typeof<ValueTypeStringJsonConverter<StructValueType>>)>]
 type StructValueType = 
   struct
     val Value : string
@@ -17,7 +17,7 @@ type StructValueType =
   with new(value:string)={ Value=value }
 
 [<TypeConverter(typeof<ValueTypeConverter<StructIntValueType>>)>]
-[<JsonConverter(typeof<ValueTypeIntConverter<StructIntValueType>>)>]
+[<JsonConverter(typeof<ValueTypeIntJsonConverter<StructIntValueType>>)>]
 type StructIntValueType = 
   struct
     val Value : int

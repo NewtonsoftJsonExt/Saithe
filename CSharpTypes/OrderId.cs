@@ -6,7 +6,7 @@ namespace CSharpTypes;
 /// Order identifier, simple wrapper around long value. Since it wraps long we need to use the JsonConverter
 /// </summary>
 [Newtonsoft.Json.JsonConverter(typeof(Saithe.NewtonsoftJson.ValueTypeJsonConverter<OrderId>)),
- System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ValueTypeLongConverter<OrderId>))]
+ System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ValueTypeLongJsonConverter<OrderId>))]
 public struct OrderId : IEquatable<OrderId>
 {
     public readonly long Value;

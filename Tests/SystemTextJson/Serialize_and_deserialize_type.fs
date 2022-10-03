@@ -5,19 +5,19 @@ open Xunit
 open System
 open Saithe.SystemTextJson
 
-[<JsonConverter(typeof<ValueTypeStringConverter<ValueType>>)>]
+[<JsonConverter(typeof<ValueTypeStringJsonConverter<ValueType>>)>]
 type ValueType =
   { Value : string }
 
-[<JsonConverter(typeof<ValueTypeIntConverter<IntValueType>>)>]
+[<JsonConverter(typeof<ValueTypeIntJsonConverter<IntValueType>>)>]
 type IntValueType =
   { Value : int }
 
-[<JsonConverter(typeof<ValueTypeStringConverter<CSharpyValueType>>)>]
+[<JsonConverter(typeof<ValueTypeStringJsonConverter<CSharpyValueType>>)>]
 type CSharpyValueType(value : string) =
   member this.Value = value
 
-[<JsonConverter(typeof<ValueTypeIntConverter<CSharpyIntValueType>>)>]
+[<JsonConverter(typeof<ValueTypeIntJsonConverter<CSharpyIntValueType>>)>]
 type CSharpyIntValueType(value : int) = 
   member this.Value = value
 

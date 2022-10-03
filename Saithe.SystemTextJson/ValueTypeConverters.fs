@@ -15,7 +15,7 @@ module Internal =
     else failwithf $"Cant handle type %s{objectType.Name}, expects %s{t.Name} (1)"
     
 open Internal
-type ValueTypeStringConverter<'T when 'T :> obj>() =
+type ValueTypeStringJsonConverter<'T when 'T :> obj>() =
   inherit JsonConverter<'T>()
   let t = typeof<'T>
   let mapping = ValueTypeMapping<'T>()
@@ -23,14 +23,14 @@ type ValueTypeStringConverter<'T when 'T :> obj>() =
   override this.Read(reader, objectType, _) : 'T = read mapping (reader.GetString()|>unbox) objectType
   override this.Write(writer, value, _) = writer.WriteStringValue(string <| mapping.ToRaw(value))
   
-type ValueTypeIntConverter<'T when 'T :> obj>() =
+type ValueTypeIntJsonConverter<'T when 'T :> obj>() =
   inherit JsonConverter<'T>()
   let t = typeof<'T>
   let mapping = ValueTypeMapping<'T>()
   override this.CanConvert(objectType) = objectType = t
   override this.Read(reader, objectType, _) : 'T = read mapping (reader.GetInt32()|>unbox) objectType
   override this.Write(writer, value, _) = writer.WriteNumberValue(mapping.ToRaw(value) :?> int32)
-type ValueTypeShortConverter<'T when 'T :> obj>() =
+type ValueTypeShortJsonConverter<'T when 'T :> obj>() =
   inherit JsonConverter<'T>()
   let t = typeof<'T>
   let mapping = ValueTypeMapping<'T>()
@@ -38,7 +38,7 @@ type ValueTypeShortConverter<'T when 'T :> obj>() =
   override this.Read(reader, objectType, _) : 'T = read mapping (reader.GetInt16()|>unbox) objectType
   override this.Write(writer, value, _) = writer.WriteNumberValue(mapping.ToRaw(value) :?> int16)
 
-type ValueTypeLongConverter<'T when 'T :> obj>() =
+type ValueTypeLongJsonConverter<'T when 'T :> obj>() =
   inherit JsonConverter<'T>()
   let t = typeof<'T>
   let mapping = ValueTypeMapping<'T>()

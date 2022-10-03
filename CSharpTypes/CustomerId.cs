@@ -6,7 +6,7 @@ namespace CSharpTypes;
 /// Customer identifier, simple wrapper around long value. Since it wraps long we need to use the JsonConverter
 /// </summary>
 [Newtonsoft.Json.JsonConverter(typeof(Saithe.NewtonsoftJson.ValueTypeJsonConverter<CustomerId>)),
- System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ValueTypeLongConverter<CustomerId>))]
+ System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ValueTypeLongJsonConverter<CustomerId>))]
 public struct CustomerId : IEquatable<CustomerId>
 {
     public readonly long Value;
