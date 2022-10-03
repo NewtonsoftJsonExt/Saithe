@@ -1,0 +1,24 @@
+<Project ToolsVersion="15.0">
+
+  <PropertyGroup>
+    <Authors>wallymathieu</Authors>
+    <Company></Company>
+    <Product>Saithe</Product>
+    <Description>Serializing value types into json</Description>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <VersionPrefix>3.0.0</VersionPrefix>
+    <VersionSuffix>alpha-1</VersionSuffix>
+
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition=" '$(VersionSuffix)' == '' ">$(VersionPrefix)</Version>
+    <AssemblyVersion>$(VersionPrefix).0</AssemblyVersion>
+    <FileVersion>$(VersionPrefix).0</FileVersion>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageProjectUrl>https://github.com/NewtonsoftJsonExt/Saithe/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/NewtonsoftJsonExt/Saithe/</RepositoryUrl>
+
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>

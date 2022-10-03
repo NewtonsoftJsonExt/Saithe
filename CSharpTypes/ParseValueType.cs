@@ -1,41 +1,18 @@
-﻿using System;
-using System.ComponentModel;
-using Saithe;
+﻿using System.ComponentModel;
 
-namespace CSharpTypes
+namespace CSharpTypes;
+
+[TypeConverter(typeof(Saithe.ParseTypeConverter<ParseValueType>)),
+ Newtonsoft.Json.JsonConverter(typeof(Saithe.NewtonsoftJson.ParseTypeJsonConverter<ParseValueType>)),
+ System.Text.Json.Serialization.JsonConverter(typeof(Saithe.SystemTextJson.ParseTypeJsonConverter<ParseValueType>))]
+public record ParseValueType (string Value)
 {
-    [TypeConverter(typeof(ParseTypeConverter<ParseValueType>))]
-    public class ParseValueType : IEquatable<ParseValueType>
+    public static ParseValueType Parse(string value)
     {
-        public readonly string Value;
-
-        public ParseValueType(string value)
-        {
-            Value = value;
-        }
-
-        public static ParseValueType Parse(string value)
-        {
-            var res = value.Split('_');
-            if (res.Length == 2 && res[0] == "P") return new ParseValueType(res[1]);
-            throw new ParseValueException($"Expected value to be in form: P_* but was '{value}'");
-        }
-
-        public override string ToString() => $"P_{Value}";
-
-        public override bool Equals(object obj)
-        {
-            return Value.Equals(obj as ParseValueType);
-        }
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-
-        public bool Equals(ParseValueType other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            return Value.Equals(other.Value);
-        }
+        var res = value.Split('_');
+        if (res.Length == 2 && res[0] == "P") return new ParseValueType(res[1]);
+        throw new ParseValueException($"Expected value to be in form: P_* but was '{value}'");
     }
+
+    public override string ToString() => $"P_{Value}";
 }

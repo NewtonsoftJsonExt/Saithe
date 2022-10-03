@@ -1,11 +1,11 @@
-﻿namespace Tests.Handle_discriminated_union
+﻿namespace Tests.NewtonsoftJson.Handle_discriminated_union
 
+open Saithe.NewtonsoftJson
 open Xunit
 open System
 open Saithe
 open Newtonsoft.Json
 open System.ComponentModel
-open System.Globalization
 
 
 [<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]

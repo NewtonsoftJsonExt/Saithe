@@ -1,5 +1,6 @@
-﻿namespace Tests.Handle_structs
+﻿namespace Tests.NewtonsoftJson.Handle_structs
 
+open Saithe.NewtonsoftJson
 open Xunit
 open System
 open Saithe
@@ -13,16 +14,15 @@ type StructValueType =
   end
   with new(value:string)={ Value=value }
 
-[<TypeConverter(typeof<ValueTypeConverter<StructIntValueType>>)>]
-[<JsonConverter(typeof<ValueTypeJsonConverter<StructIntValueType>>)>]
+[<TypeConverter(typeof<ValueTypeConverter<StructIntValueType>>);
+  JsonConverter(typeof<ValueTypeJsonConverter<StructIntValueType>>)>]
 type StructIntValueType = 
   struct
     val Value : int
   end
   with new(value:int)={ Value=value }
 
-[<Serializable>]
-[<CLIMutable>]
+[<Serializable; CLIMutable>]
 type StructValueContainer = 
   { Value : StructValueType
     IntValue : StructIntValueType }

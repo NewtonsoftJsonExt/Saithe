@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpTypes", "CSharpTypes\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MvcApp", "MvcApp\MvcApp.fsproj", "{01B906AA-DFBC-4B2C-BE96-C4EB4AD938E5}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Saithe.SystemTextJson", "Saithe.SystemTextJson\Saithe.SystemTextJson.fsproj", "{377786B1-9222-44D8-834F-59E6EBC13295}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Saithe.NewtonsoftJson", "Saithe.NewtonsoftJson\Saithe.NewtonsoftJson.fsproj", "{048AF204-1C91-4314-90E3-9376672E8A4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,14 @@ Global
 		{01B906AA-DFBC-4B2C-BE96-C4EB4AD938E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01B906AA-DFBC-4B2C-BE96-C4EB4AD938E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01B906AA-DFBC-4B2C-BE96-C4EB4AD938E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{377786B1-9222-44D8-834F-59E6EBC13295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{377786B1-9222-44D8-834F-59E6EBC13295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{377786B1-9222-44D8-834F-59E6EBC13295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{377786B1-9222-44D8-834F-59E6EBC13295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048AF204-1C91-4314-90E3-9376672E8A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048AF204-1C91-4314-90E3-9376672E8A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048AF204-1C91-4314-90E3-9376672E8A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048AF204-1C91-4314-90E3-9376672E8A4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

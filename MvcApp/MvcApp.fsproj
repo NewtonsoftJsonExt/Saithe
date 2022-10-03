@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Saithe.SystemTextJson\Saithe.SystemTextJson.fsproj" />
     <ProjectReference Include="..\Saithe\Saithe.fsproj" />
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>

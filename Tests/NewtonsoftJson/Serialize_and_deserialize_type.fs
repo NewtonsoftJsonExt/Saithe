@@ -1,5 +1,5 @@
-﻿namespace Tests.Serialize_and_deserialize_type
-
+﻿namespace Tests.NewtonsoftJson.Serialize_and_deserialize_type
+open Saithe.NewtonsoftJson
 open Xunit
 open System
 open Saithe
@@ -22,8 +22,7 @@ type CSharpyValueType(value : string) =
 type CSharpyIntValueType(value : int) = 
   member this.Value = value
 
-[<Serializable>]
-[<CLIMutable>]
+[<Serializable; CLIMutable>]
 type ValueContainer = 
   { Value : ValueType
     IntValue : IntValueType }

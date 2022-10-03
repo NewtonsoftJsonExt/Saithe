@@ -1,12 +1,10 @@
-﻿namespace Tests.Parse_csharp_type
+﻿namespace Tests.NewtonsoftJson.Parse_csharp_type
 open Xunit
 open System
-open Saithe
 open Newtonsoft.Json
 open System.ComponentModel
 open CSharpTypes
-[<Serializable>]
-[<CLIMutable>]
+[<Serializable; CLIMutable>]
 type PValueContainer={ V:ProductId; }
 
 
@@ -28,9 +26,10 @@ type ``Parse type``() =
     [<Fact>]
     member this.Newtonsoft_deserialize_invalid_data()=
         let data = @"{""V"":""1""}"
-        Assert.Throws<JsonSerializationException>( fun ()->
+        let ex = Assert.Throws<Exception>( fun ()->
            JsonConvert.DeserializeObject<PValueContainer>(data) |> ignore
-        ) |> ignore
+        )
+        Assert.Equal ("Could not parse product id", ex.Message)
 
     [<Fact>]
     member this.TypeConverter_deserialize()=

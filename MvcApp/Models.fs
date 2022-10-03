@@ -26,24 +26,27 @@ let parseId prefix str =
     | Some g -> g
     | None -> raise (FormatException str)
 
-[<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<CustomerId>>)>]
+[<Struct;
+  TypeConverter(typeof<ParseTypeConverter<CustomerId>>);
+  System.Text.Json.Serialization.JsonConverter(typeof<Saithe.SystemTextJson.ValueTypeLongJsonConverter<CustomerId>>)>]
 type CustomerId = 
     { Value : Guid }
     static member Default : CustomerId = { Value=Guid.Empty }
     static member Parse(str : string) : CustomerId = { Value = parseId "c-" str }
     override this.ToString() = sprintf "c-%s" (toStr this.Value)
 
-[<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<ProductId>>)>]
+[<Struct;
+  TypeConverter(typeof<ParseTypeConverter<ProductId>>);
+  System.Text.Json.Serialization.JsonConverter(typeof<Saithe.SystemTextJson.ValueTypeLongJsonConverter<ProductId>>)>]
 type ProductId = 
     { Value : Guid }
     static member Default : ProductId = { Value=Guid.Empty }
     static member Parse(str : string) : ProductId = { Value = parseId "p-" str }
     override this.ToString() = sprintf "p-%s" (toStr this.Value)
 
-[<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<OrderId>>)>]
+[<Struct;
+  TypeConverter(typeof<ParseTypeConverter<OrderId>>);
+  System.Text.Json.Serialization.JsonConverter(typeof<Saithe.SystemTextJson.ValueTypeLongJsonConverter<OrderId>>)>]
 type OrderId = 
     { Value : Guid }
     static member Default : OrderId = { Value=Guid.Empty }
