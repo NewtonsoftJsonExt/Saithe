@@ -5,7 +5,7 @@ open System
 open System.Reflection
 open Newtonsoft.Json
 
-type ParseTypeConverter<'T>() = //when 'T : (static member parse : string -> 'T)
+type ParseTypeConverter<'T (*when 'T :> IParsable<'T>*) >() = //when 'T : (static member parse : string -> 'T)
   inherit TypeConverter()
   let strT = typeof<string>
   let t = typeof<'T>
