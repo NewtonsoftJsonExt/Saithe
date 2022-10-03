@@ -1,16 +1,9 @@
 namespace MvcApp
-
-open System
-open System.Collections.Generic
-open System.Linq
-open System.Threading.Tasks
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
-open Swashbuckle
-open Swashbuckle.AspNetCore.Swagger
-open MvcApp.Models
+open Microsoft.OpenApi.Models
 type Startup private () = 
     
     new(configuration : IConfiguration) as this = 
@@ -21,15 +14,12 @@ type Startup private () =
     member this.ConfigureServices(services : IServiceCollection) = 
         // Add framework services.
         services.AddMvc() |> ignore
-        let i = Info()
-        i.Version <-"v1"
-        i.Title <-"Current version"
         services.AddSwaggerGen(fun o -> 
-            o.SwaggerDoc("v1", i)
+            o.SwaggerDoc("v1", OpenApiInfo(Version = "v1", Title = "Current version"))
         ) |> ignore
     
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    member this.Configure(app : IApplicationBuilder, env : IHostingEnvironment) = 
+    member this.Configure(app : IApplicationBuilder, env : IWebHostEnvironment) = 
         app.UseSwagger(fun o -> ()) |> ignore
         app.UseSwaggerUI(fun o -> o.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1")) |> ignore
         app.UseMvc() |> ignore

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Saithe", "Saithe\Saithe.fsproj", "{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Saithe", "Saithe\Saithe.fsproj", "{4B1B583A-2D70-4C38-B823-1B7FB6C829BF}"
 EndProject
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tests", "Tests\Tests.fsproj", "{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{BF192A63-1E9F-44EE-9000-1EAC7D135C5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D893E9C5-F60C-4FF2-BE6E-6840861C2619}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpTypes", "CSharpTypes\CSharpTypes.csproj", "{F8F7A953-D199-4F6E-9B6C-CC55F2070C99}"
 EndProject
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "MvcApp", "MvcApp\MvcApp.fsproj", "{01B906AA-DFBC-4B2C-BE96-C4EB4AD938E5}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MvcApp", "MvcApp\MvcApp.fsproj", "{01B906AA-DFBC-4B2C-BE96-C4EB4AD938E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
