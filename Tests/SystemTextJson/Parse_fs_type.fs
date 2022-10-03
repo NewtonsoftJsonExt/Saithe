@@ -1,45 +1,45 @@
-﻿namespace Tests.Parse_fs_type
+﻿namespace Tests.SystemTextJson.Parse_fs_type
+open System.Text.Json
+open System.Text.Json.Serialization
 open Xunit
 open System
 open Saithe
-open Newtonsoft.Json
 open System.ComponentModel
-open System.Globalization
 
-[<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
-type ParseValueType={ Value:string }
+[<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>);
+  JsonConverter(typeof<Saithe.SystemTextJson.ParseTypeJsonConverter<ParseValueType>>)>]
+type ParseValueType = { Value:string }
 with
     static member Parse (str:string)= 
         match str.Split('_') |> Array.toList with
         | ["P";v] -> { Value=v }
         | _ -> raise (FormatException str)
     override this.ToString()=
-        sprintf "P_%s" this.Value
+        $"P_%s{this.Value}"
 
-[<Serializable>]
-[<CLIMutable>]
+[<Serializable; CLIMutable>]
 type PValueContainer={ V:ParseValueType; }
 
 type ``Parse type``() = 
 
     [<Fact>]
-    member this.Newtonsoft()=
+    member this.SystemTextJson()=
         let data = @"{""V"":""P_Ctr""}"
-        let result = JsonConvert.DeserializeObject<PValueContainer>(data);
+        let result = JsonSerializer.Deserialize<PValueContainer>(data);
         let expected = { V = { Value = "Ctr" } }
         Assert.Equal(expected, result)
 
     [<Fact>]
-    member this.Newtonsoft_serialize()=
+    member this.SystemTextJson_serialize()=
         let expected = @"{""V"":""P_Mgr""}"
-        let result = JsonConvert.SerializeObject({ V = { Value = "Mgr" }})
+        let result = JsonSerializer.Serialize({ V = { Value = "Mgr" }})
         Assert.Equal(expected, result)
 
     [<Fact>]
-    member this.Newtonsoft_deserialize_invalid_data()=
+    member this.SystemTextJson_deserialize_invalid_data()=
         let data = @"{""V"":""Ctr""}"
-        Assert.Throws<JsonSerializationException>( fun ()->
-           JsonConvert.DeserializeObject<PValueContainer>(data) |> ignore
+        Assert.Throws<FormatException>( fun ()->
+           JsonSerializer.Deserialize<PValueContainer>(data) |> ignore
         ) |> ignore
 
 

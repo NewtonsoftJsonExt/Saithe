@@ -1,12 +1,15 @@
 ﻿namespace Tests.Handle_structs
 
+open System.Text.Json
+open System.Text.Json.Serialization
+open Saithe.SystemTextJson
 open Xunit
 open System
 open Saithe
-open Newtonsoft.Json
 open System.ComponentModel
 
 [<TypeConverter(typeof<ValueTypeConverter<StructValueType>>)>]
+[<JsonConverter(typeof<ValueTypeStringConverter<StructValueType>>)>]
 type StructValueType = 
   struct
     val Value : string
@@ -14,7 +17,7 @@ type StructValueType =
   with new(value:string)={ Value=value }
 
 [<TypeConverter(typeof<ValueTypeConverter<StructIntValueType>>)>]
-[<JsonConverter(typeof<ValueTypeJsonConverter<StructIntValueType>>)>]
+[<JsonConverter(typeof<ValueTypeIntConverter<StructIntValueType>>)>]
 type StructIntValueType = 
   struct
     val Value : int
@@ -30,9 +33,9 @@ type StructValueContainer =
 type ``Serialize and deserialize struct type``() = 
   
   [<Fact>]
-  member this.Struct_Newtonsoft() = 
+  member this.Struct_SystemTextJson() = 
     let data = @"{""Value"":""Ctr"",""IntValue"":1}"
-    let result = JsonConvert.DeserializeObject<StructValueContainer>(data)
+    let result = JsonSerializer.Deserialize<StructValueContainer>(data)
     Assert.Equal("Ctr", result.Value.Value)
     Assert.Equal(1, result.IntValue.Value)
   
@@ -41,6 +44,6 @@ type ``Serialize and deserialize struct type``() =
     let expected = @"{""Value"":""Mgr"",""IntValue"":1}"
     
     let result = 
-      JsonConvert.SerializeObject({ Value = StructValueType("Mgr")
-                                    IntValue = StructIntValueType(1) })
+      JsonSerializer.Serialize({ Value = StructValueType("Mgr")
+                                 IntValue = StructIntValueType(1) })
     Assert.Equal(expected, result)

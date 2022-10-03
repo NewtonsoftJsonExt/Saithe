@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Saithe.NewtonsoftJson\Saithe.NewtonsoftJson.fsproj" />
+    <ProjectReference Include="..\Saithe.SystemTextJson\Saithe.SystemTextJson.fsproj" />
     <ProjectReference Include="..\Saithe\Saithe.fsproj" />
   </ItemGroup>
 </Project>

@@ -26,7 +26,6 @@
     <Compile Include="ValueTypeConverters.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Update="FSharp.Core" Version="6.0.5" />
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
   </ItemGroup>
