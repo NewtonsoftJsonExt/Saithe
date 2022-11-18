@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Saithe;
 
 namespace CSharpTypes
 {
     [TypeConverter(typeof(ParseTypeConverter<ProductId>))]
-    public struct ProductId: IEquatable<ProductId>
+    public struct ProductId: IEquatable<ProductId>, IParsable<ProductId>
     {
         public readonly long Value;
 
@@ -35,7 +36,7 @@ namespace CSharpTypes
         {
             return $"ProductId/{Value}";
         }
-        public static bool TryParse(string str, out ProductId result) 
+        private static bool TryParse(string str, out ProductId result) 
         {
             result = Empty;
             if (string.IsNullOrEmpty(str))
@@ -53,12 +54,16 @@ namespace CSharpTypes
             }
             return false;
         }
-        public static ProductId Parse(string str) 
+        private static ProductId Parse(string str) 
         {
             ProductId res;
             if (TryParse(str, out res))
                 return res;
             throw new Exception("Could not parse product id");
         }
+
+        public static ProductId Parse(string s, IFormatProvider provider) => Parse(s);
+
+        public static bool TryParse([NotNullWhen(true)] string s, IFormatProvider provider, [MaybeNullWhen(false)] out ProductId result) => TryParse(s, out result);
     }
 }

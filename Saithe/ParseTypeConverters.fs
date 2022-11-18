@@ -5,7 +5,7 @@ open System
 open System.Reflection
 open Newtonsoft.Json
 
-type ParseTypeConverter<'T (*when 'T :> IParsable<'T>*) >() = //when 'T : (static member parse : string -> 'T)
+type ParseTypeConverter<'T when 'T :> IParsable<'T> >() = //when 'T : (static member parse : string -> 'T)
   inherit TypeConverter()
   let strT = typeof<string>
   let t = typeof<'T>
@@ -34,11 +34,11 @@ type public ParseTypeJsonConverter<'T>() =
   inherit JsonConverter()
   let t = typeof<'T>
 
-  let parse_method = t.GetTypeInfo().GetMethod("Parse")
+  let parse_method = t.GetTypeInfo().GetInterface(nameof(IParsable)).GetMethod("Parse")
   
   let parse s = 
     try 
-      box (parse_method.Invoke(null, [| s |]))
+      box (parse_method.Invoke(null, [| s ; null |]))
     with :? TargetInvocationException as e -> raise (e.GetBaseException())
   
   override this.CanConvert(objectType) = objectType = t

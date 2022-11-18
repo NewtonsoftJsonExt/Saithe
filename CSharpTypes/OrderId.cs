@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Saithe;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CSharpTypes
 {
@@ -8,7 +9,7 @@ namespace CSharpTypes
     /// Order identifier, simple wrapper around long value. Since it wraps long we need to use the JsonConverter
     /// </summary>
     [JsonConverter(typeof(ParseTypeJsonConverter<OrderId>))]
-    public struct OrderId : IEquatable<OrderId>
+    public struct OrderId : IEquatable<OrderId>, IParsable<OrderId>
     {
         public readonly long Value;
 
@@ -38,7 +39,7 @@ namespace CSharpTypes
         {
             return Value.ToString();
         }
-        public static bool TryParse(string str, out OrderId result)
+        private static bool TryParse(string str, out OrderId result)
         {
             result = Empty;
             if (string.IsNullOrEmpty(str))
@@ -53,12 +54,16 @@ namespace CSharpTypes
             }
             return false;
         }
-        public static OrderId Parse(string str)
+        private static OrderId Parse(string str)
         {
             OrderId res;
             if (TryParse(str, out res))
                 return res;
             throw new Exception("Could not parse product id");
         }
+
+        public static OrderId Parse(string s, IFormatProvider provider) => Parse(s);
+
+        public static bool TryParse([NotNullWhen(true)] string s, IFormatProvider provider, [MaybeNullWhen(false)] out OrderId result) => TryParse(s, out result);
     }
 }
