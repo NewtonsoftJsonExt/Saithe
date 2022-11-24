@@ -33,7 +33,15 @@ type CustomerId =
     static member Default : CustomerId = { Value=Guid.Empty }
     static member Parse(str : string) : CustomerId = { Value = parseId "c-" str }
     override this.ToString() = sprintf "c-%s" (toStr this.Value)
-
+    interface IParsable<CustomerId> with
+        static member Parse(s:string, f:IFormatProvider) = CustomerId.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<CustomerId>) =
+            try
+                result <- CustomerId.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
 [<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<ProductId>>)>]
 type ProductId = 
@@ -41,7 +49,15 @@ type ProductId =
     static member Default : ProductId = { Value=Guid.Empty }
     static member Parse(str : string) : ProductId = { Value = parseId "p-" str }
     override this.ToString() = sprintf "p-%s" (toStr this.Value)
-
+    interface IParsable<ProductId> with
+        static member Parse(s:string, f:IFormatProvider) = ProductId.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<ProductId>) =
+            try
+                result <- ProductId.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
 [<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<OrderId>>)>]
 type OrderId = 
@@ -49,7 +65,15 @@ type OrderId =
     static member Default : OrderId = { Value=Guid.Empty }
     static member Parse(str : string) : OrderId = { Value = parseId "o-" str }
     override this.ToString() = sprintf "o-%s" (toStr this.Value)
-
+    interface IParsable<OrderId> with
+        static member Parse(s:string, f:IFormatProvider) = OrderId.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<OrderId>) =
+            try
+                result <- OrderId.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
 
 type Customer = {Id:CustomerId; FirstName:string ; LastName:string; Version:int}
 

@@ -24,6 +24,15 @@ type ParseValueType =
     match this with
     | Empty -> ""
     | ValueType value -> sprintf "P_%s" value
+  interface IParsable<ParseValueType> with
+    static member Parse(s:string, f:IFormatProvider) = ParseValueType.Parse(s)
+    static member TryParse(s:string, f:IFormatProvider, result:byref<ParseValueType>) =
+        try
+            result <- ParseValueType.Parse(s)
+            true
+        with _ ->
+            result <- Unchecked.defaultof<_>
+            false
 
 [<Serializable>]
 [<CLIMutable>]
