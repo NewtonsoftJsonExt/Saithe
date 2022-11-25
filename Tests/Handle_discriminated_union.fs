@@ -13,7 +13,7 @@ open System.Globalization
 type ParseValueType = 
   | ValueType of string
   | Empty
-  
+  //new()=Empty
   static member Parse(str : string) = 
     match str.Split('_') |> Array.toList with
     | [] -> Empty

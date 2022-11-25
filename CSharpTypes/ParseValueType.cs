@@ -8,7 +8,10 @@ namespace CSharpTypes
     public class ParseValueType : IEquatable<ParseValueType>, IParse<ParseValueType>
     {
         public readonly string Value;
-
+        public ParseValueType()
+        {
+            Value = null;
+        }
         public ParseValueType(string value)
         {
             Value = value;

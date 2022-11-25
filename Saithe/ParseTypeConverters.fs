@@ -8,15 +8,17 @@ type IParse<'T> = interface
   abstract member Parse : string -> 'T 
 end
 
-type ParseTypeConverter<'T when 'T :> IParse<'T> >() = //when 'T : (static member parse : string -> 'T)
+type ParseTypeConverter<'T (* when 'T :> IParse<'T> *) >() = //when 'T : (static member parse : string -> 'T)
   inherit TypeConverter()
   let strT = typeof<string>
   let t = typeof<'T>
+  let instance = Activator.CreateInstance(t)
+
   let parse_method = t.GetInterface("IParse`1").GetMethod("Parse")
   
   let parse s = 
     try 
-      box (parse_method.Invoke(null, [| s |]))
+      box (parse_method.Invoke(instance, [| s |]))
     with :? TargetInvocationException as e -> raise (e.GetBaseException())
   
   override this.CanConvertFrom(context, sourceType) = (strT = sourceType || sourceType = t)
@@ -33,15 +35,16 @@ type ParseTypeConverter<'T when 'T :> IParse<'T> >() = //when 'T : (static membe
     if destinationType = t then box (parse value)
     else box (value.ToString())
 
-type public ParseTypeJsonConverter<'T when 'T :> IParse<'T> >() = 
+type public ParseTypeJsonConverter<'T (* when 'T :> IParse<'T> *) >() = 
   inherit JsonConverter()
   let t = typeof<'T>
+  let instance = Activator.CreateInstance(t)
 
   let parse_method = t.GetInterface("IParse`1").GetMethod("Parse")
   
   let parse s = 
     try 
-      box (parse_method.Invoke(null, [| s |]))
+      box (parse_method.Invoke(instance, [| s |]))
     with :? TargetInvocationException as e -> raise (e.GetBaseException())
   
   override this.CanConvert(objectType) = objectType = t

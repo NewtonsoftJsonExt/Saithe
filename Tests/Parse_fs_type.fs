@@ -9,6 +9,7 @@ open System.Globalization
 [<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
 type ParseValueType={ Value:string }
 with
+    //new() = { Value=null }
     static member Parse (str:string)= 
         match str.Split('_') |> Array.toList with
         | ["P";v] -> { Value=v }
