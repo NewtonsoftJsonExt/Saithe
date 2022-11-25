@@ -12,7 +12,11 @@ type ParseTypeConverter<'T (* when 'T :> IParse<'T> *) >() = //when 'T : (static
   inherit TypeConverter()
   let strT = typeof<string>
   let t = typeof<'T>
-  let instance = Activator.CreateInstance(t)
+  let instance =
+    try
+      Activator.CreateInstance(t)
+    with 
+    | e -> box Unchecked.defaultof<'T>
 
   let parse_method = t.GetInterface("IParse`1").GetMethod("Parse")
   
@@ -38,7 +42,11 @@ type ParseTypeConverter<'T (* when 'T :> IParse<'T> *) >() = //when 'T : (static
 type public ParseTypeJsonConverter<'T (* when 'T :> IParse<'T> *) >() = 
   inherit JsonConverter()
   let t = typeof<'T>
-  let instance = Activator.CreateInstance(t)
+  let instance =
+    try
+      Activator.CreateInstance(t)
+    with 
+    | e -> box Unchecked.defaultof<'T>
 
   let parse_method = t.GetInterface("IParse`1").GetMethod("Parse")
   
