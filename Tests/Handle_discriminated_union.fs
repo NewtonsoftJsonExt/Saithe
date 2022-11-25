@@ -24,6 +24,9 @@ type ParseValueType =
     match this with
     | Empty -> ""
     | ValueType value -> sprintf "P_%s" value
+  interface IParse<ParseValueType> with
+      member this.Parse(str) = ParseValueType.Parse(str)
+
 
 [<Serializable>]
 [<CLIMutable>]

@@ -8,7 +8,7 @@ namespace CSharpTypes
     /// Order identifier, simple wrapper around long value. Since it wraps long we need to use the JsonConverter
     /// </summary>
     [JsonConverter(typeof(ParseTypeJsonConverter<OrderId>))]
-    public struct OrderId : IEquatable<OrderId>
+    public struct OrderId : IEquatable<OrderId>, IParse<OrderId>
     {
         public readonly long Value;
 
@@ -60,5 +60,7 @@ namespace CSharpTypes
                 return res;
             throw new Exception("Could not parse product id");
         }
+
+        OrderId IParse<OrderId>.Parse(string str) => OrderId.Parse(str);
     }
 }

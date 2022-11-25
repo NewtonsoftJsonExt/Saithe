@@ -33,6 +33,8 @@ type CustomerId =
     static member Default : CustomerId = { Value=Guid.Empty }
     static member Parse(str : string) : CustomerId = { Value = parseId "c-" str }
     override this.ToString() = sprintf "c-%s" (toStr this.Value)
+    interface IParse<CustomerId> with
+        member this.Parse(str) = CustomerId.Parse(str)
 
 [<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<ProductId>>)>]
@@ -41,6 +43,8 @@ type ProductId =
     static member Default : ProductId = { Value=Guid.Empty }
     static member Parse(str : string) : ProductId = { Value = parseId "p-" str }
     override this.ToString() = sprintf "p-%s" (toStr this.Value)
+    interface IParse<ProductId> with
+        member this.Parse(str) = ProductId.Parse(str)
 
 [<Struct>]
 [<TypeConverter(typeof<ParseTypeConverter<OrderId>>)>]
@@ -49,6 +53,8 @@ type OrderId =
     static member Default : OrderId = { Value=Guid.Empty }
     static member Parse(str : string) : OrderId = { Value = parseId "o-" str }
     override this.ToString() = sprintf "o-%s" (toStr this.Value)
+    interface IParse<OrderId> with
+        member this.Parse(str) = OrderId.Parse(str)
 
 
 type Customer = {Id:CustomerId; FirstName:string ; LastName:string; Version:int}

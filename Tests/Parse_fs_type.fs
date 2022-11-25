@@ -15,6 +15,8 @@ with
         | _ -> raise (FormatException str)
     override this.ToString()=
         sprintf "P_%s" this.Value
+    interface IParse<ParseValueType> with
+        member this.Parse(str) = ParseValueType.Parse(str)
 
 [<Serializable>]
 [<CLIMutable>]

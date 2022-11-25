@@ -4,12 +4,15 @@ open System.ComponentModel
 open System
 open System.Reflection
 open Newtonsoft.Json
+type IParse<'T> = interface 
+  abstract member Parse : string -> 'T 
+end
 
-type ParseTypeConverter<'T (*when 'T :> IParsable<'T>*) >() = //when 'T : (static member parse : string -> 'T)
+type ParseTypeConverter<'T when 'T :> IParse<'T> >() = //when 'T : (static member parse : string -> 'T)
   inherit TypeConverter()
   let strT = typeof<string>
   let t = typeof<'T>
-  let parse_method = t.GetTypeInfo().GetMethod("Parse")
+  let parse_method = t.GetInterface("IParse`1").GetMethod("Parse")
   
   let parse s = 
     try 
@@ -30,11 +33,11 @@ type ParseTypeConverter<'T (*when 'T :> IParsable<'T>*) >() = //when 'T : (stati
     if destinationType = t then box (parse value)
     else box (value.ToString())
 
-type public ParseTypeJsonConverter<'T>() = 
+type public ParseTypeJsonConverter<'T when 'T :> IParse<'T> >() = 
   inherit JsonConverter()
   let t = typeof<'T>
 
-  let parse_method = t.GetTypeInfo().GetMethod("Parse")
+  let parse_method = t.GetInterface("IParse`1").GetMethod("Parse")
   
   let parse s = 
     try 

@@ -5,7 +5,7 @@ using Saithe;
 namespace CSharpTypes
 {
     [TypeConverter(typeof(ParseTypeConverter<ParseValueType>))]
-    public class ParseValueType : IEquatable<ParseValueType>
+    public class ParseValueType : IEquatable<ParseValueType>, IParse<ParseValueType>
     {
         public readonly string Value;
 
@@ -37,5 +37,7 @@ namespace CSharpTypes
             if (ReferenceEquals(null, other)) return false;
             return Value.Equals(other.Value);
         }
+        ParseValueType IParse<ParseValueType>.Parse(string str) => ParseValueType.Parse(str);
+
     }
 }

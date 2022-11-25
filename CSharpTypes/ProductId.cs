@@ -5,7 +5,7 @@ using Saithe;
 namespace CSharpTypes
 {
     [TypeConverter(typeof(ParseTypeConverter<ProductId>))]
-    public struct ProductId: IEquatable<ProductId>
+    public struct ProductId: IEquatable<ProductId>, IParse<ProductId>
     {
         public readonly long Value;
 
@@ -60,5 +60,7 @@ namespace CSharpTypes
                 return res;
             throw new Exception("Could not parse product id");
         }
+        ProductId IParse<ProductId>.Parse(string str) => ProductId.Parse(str);
+
     }
 }
