@@ -7,9 +7,8 @@ open Newtonsoft.Json
 open System.ComponentModel
 open System.Globalization
 
-
-[<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
-[<JsonConverter(typeof<ParseTypeJsonConverter<ParseValueType>>)>]
+[<TypeConverter(typeof<ParseValueType_T1>)>]
+[<JsonConverter(typeof<ParseValueType_T2>)>] 
 type ParseValueType = 
   | ValueType of string
   | Empty
@@ -33,6 +32,9 @@ type ParseValueType =
         with _ ->
             result <- Unchecked.defaultof<_>
             false
+and internal ParseValueType_T1 = ParseTypeConverter<ParseValueType>
+and internal ParseValueType_T2 = ParseTypeJsonConverter<ParseValueType>
+
 
 [<Serializable>]
 [<CLIMutable>]

@@ -6,7 +6,7 @@ open Newtonsoft.Json
 open System.ComponentModel
 open System.Globalization
 
-[<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
+[<TypeConverter(typeof<ParseValueType_T1>)>]
 type ParseValueType={ Value:string }
 with
     static member Parse (str:string)= 
@@ -24,6 +24,7 @@ with
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
+and internal ParseValueType_T1 = ParseTypeConverter<ParseValueType>
 
 [<Serializable>]
 [<CLIMutable>]

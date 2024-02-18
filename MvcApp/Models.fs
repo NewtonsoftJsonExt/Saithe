@@ -27,7 +27,7 @@ let parseId prefix str =
     | None -> raise (FormatException str)
 
 [<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<CustomerId>>)>]
+[<TypeConverter(typeof<CustomerId_T1>)>]
 type CustomerId = 
     { Value : Guid }
     static member Default : CustomerId = { Value=Guid.Empty }
@@ -42,8 +42,10 @@ type CustomerId =
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
+and internal CustomerId_T1 = ParseTypeConverter<CustomerId>
+
 [<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<ProductId>>)>]
+[<TypeConverter(typeof<ProductId_T1>)>]
 type ProductId = 
     { Value : Guid }
     static member Default : ProductId = { Value=Guid.Empty }
@@ -58,8 +60,10 @@ type ProductId =
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
+and internal ProductId_T1 = ParseTypeConverter<ProductId>
+
 [<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<OrderId>>)>]
+[<TypeConverter(typeof<OrderId_T1>)>]
 type OrderId = 
     { Value : Guid }
     static member Default : OrderId = { Value=Guid.Empty }
@@ -74,6 +78,7 @@ type OrderId =
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
+and internal OrderId_T1 = ParseTypeConverter<OrderId>
 
 type Customer = {Id:CustomerId; FirstName:string ; LastName:string; Version:int}
 
