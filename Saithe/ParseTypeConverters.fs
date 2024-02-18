@@ -4,16 +4,18 @@ open System.ComponentModel
 open System
 open System.Reflection
 open Newtonsoft.Json
+module internal MethodInfos=
+    let matchParse (t:MethodInfo) = t.Name<>null && (t.Name.Equals("Parse") || t.Name.EndsWith(".Parse")) && t.GetParameters().Length = 2
 
-type ParseTypeConverter<'T (*when 'T :> IParsable<'T>*) >() = //when 'T : (static member parse : string -> 'T)
+type ParseTypeConverter<'T when 'T :> IParsable<'T> >() =
   inherit TypeConverter()
   let strT = typeof<string>
   let t = typeof<'T>
-  let parse_method = t.GetTypeInfo().GetMethod("Parse")
+  let parse_method = t.GetMethods() |> Array.find MethodInfos.matchParse
   
   let parse s = 
     try 
-      box (parse_method.Invoke(null, [| s |]))
+      box (parse_method.Invoke(null, [| s; null |]))
     with :? TargetInvocationException as e -> raise (e.GetBaseException())
   
   override this.CanConvertFrom(context, sourceType) = (strT = sourceType || sourceType = t)
@@ -30,15 +32,15 @@ type ParseTypeConverter<'T (*when 'T :> IParsable<'T>*) >() = //when 'T : (stati
     if destinationType = t then box (parse value)
     else box (value.ToString())
 
-type public ParseTypeJsonConverter<'T>() = 
+type public ParseTypeJsonConverter<'T when 'T :> IParsable<'T> >() = 
   inherit JsonConverter()
   let t = typeof<'T>
 
-  let parse_method = t.GetTypeInfo().GetMethod("Parse")
+  let parse_method = t.GetMethods() |> Array.find MethodInfos.matchParse
   
   let parse s = 
     try 
-      box (parse_method.Invoke(null, [| s |]))
+      box (parse_method.Invoke(null, [| s ; null |]))
     with :? TargetInvocationException as e -> raise (e.GetBaseException())
   
   override this.CanConvert(objectType) = objectType = t

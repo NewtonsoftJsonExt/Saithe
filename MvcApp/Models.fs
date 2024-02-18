@@ -27,29 +27,58 @@ let parseId prefix str =
     | None -> raise (FormatException str)
 
 [<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<CustomerId>>)>]
+[<TypeConverter(typeof<CustomerId_T1>)>]
 type CustomerId = 
     { Value : Guid }
     static member Default : CustomerId = { Value=Guid.Empty }
     static member Parse(str : string) : CustomerId = { Value = parseId "c-" str }
     override this.ToString() = sprintf "c-%s" (toStr this.Value)
+    interface IParsable<CustomerId> with
+        static member Parse(s:string, f:IFormatProvider) = CustomerId.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<CustomerId>) =
+            try
+                result <- CustomerId.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
+and private CustomerId_T1 = ParseTypeConverter<CustomerId>
 
 [<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<ProductId>>)>]
+[<TypeConverter(typeof<ProductId_T1>)>]
 type ProductId = 
     { Value : Guid }
     static member Default : ProductId = { Value=Guid.Empty }
     static member Parse(str : string) : ProductId = { Value = parseId "p-" str }
     override this.ToString() = sprintf "p-%s" (toStr this.Value)
+    interface IParsable<ProductId> with
+        static member Parse(s:string, f:IFormatProvider) = ProductId.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<ProductId>) =
+            try
+                result <- ProductId.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
+and private ProductId_T1 = ParseTypeConverter<ProductId>
 
 [<Struct>]
-[<TypeConverter(typeof<ParseTypeConverter<OrderId>>)>]
+[<TypeConverter(typeof<OrderId_T1>)>]
 type OrderId = 
     { Value : Guid }
     static member Default : OrderId = { Value=Guid.Empty }
     static member Parse(str : string) : OrderId = { Value = parseId "o-" str }
     override this.ToString() = sprintf "o-%s" (toStr this.Value)
-
+    interface IParsable<OrderId> with
+        static member Parse(s:string, f:IFormatProvider) = OrderId.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<OrderId>) =
+            try
+                result <- OrderId.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
+and private OrderId_T1 = ParseTypeConverter<OrderId>
 
 type Customer = {Id:CustomerId; FirstName:string ; LastName:string; Version:int}
 

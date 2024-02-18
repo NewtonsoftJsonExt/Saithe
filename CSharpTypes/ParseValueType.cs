@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Saithe;
 
 namespace CSharpTypes
 {
     [TypeConverter(typeof(ParseTypeConverter<ParseValueType>))]
-    public class ParseValueType : IEquatable<ParseValueType>
+    public class ParseValueType : IEquatable<ParseValueType>, IParsable<ParseValueType>
     {
         public readonly string Value;
 
@@ -36,6 +37,19 @@ namespace CSharpTypes
         {
             if (ReferenceEquals(null, other)) return false;
             return Value.Equals(other.Value);
+        }
+
+        public static ParseValueType Parse(string s, IFormatProvider provider) => Parse(s);
+
+        public static bool TryParse([NotNullWhen(true)] string s, IFormatProvider provider, [MaybeNullWhen(false)] out ParseValueType result)
+        {
+            try{
+                result = Parse(s);
+                return true;
+            }catch(Exception){
+                result = default;
+                return false;
+            }
         }
     }
 }

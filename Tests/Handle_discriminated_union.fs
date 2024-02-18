@@ -7,9 +7,8 @@ open Newtonsoft.Json
 open System.ComponentModel
 open System.Globalization
 
-
-[<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
-[<JsonConverter(typeof<ParseTypeJsonConverter<ParseValueType>>)>]
+[<TypeConverter(typeof<ParseValueType_T1>)>]
+[<JsonConverter(typeof<ParseValueType_T2>)>] 
 type ParseValueType = 
   | ValueType of string
   | Empty
@@ -24,6 +23,18 @@ type ParseValueType =
     match this with
     | Empty -> ""
     | ValueType value -> sprintf "P_%s" value
+  interface IParsable<ParseValueType> with
+    static member Parse(s:string, f:IFormatProvider) = ParseValueType.Parse(s)
+    static member TryParse(s:string, f:IFormatProvider, result:byref<ParseValueType>) =
+        try
+            result <- ParseValueType.Parse(s)
+            true
+        with _ ->
+            result <- Unchecked.defaultof<_>
+            false
+and private ParseValueType_T1 = ParseTypeConverter<ParseValueType>
+and private ParseValueType_T2 = ParseTypeJsonConverter<ParseValueType>
+
 
 [<Serializable>]
 [<CLIMutable>]

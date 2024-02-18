@@ -6,7 +6,7 @@ open Newtonsoft.Json
 open System.ComponentModel
 open System.Globalization
 
-[<TypeConverter(typeof<ParseTypeConverter<ParseValueType>>)>]
+[<TypeConverter(typeof<ParseValueType_T1>)>]
 type ParseValueType={ Value:string }
 with
     static member Parse (str:string)= 
@@ -15,6 +15,16 @@ with
         | _ -> raise (FormatException str)
     override this.ToString()=
         sprintf "P_%s" this.Value
+    interface IParsable<ParseValueType> with
+        static member Parse(s:string, f:IFormatProvider) = ParseValueType.Parse(s)
+        static member TryParse(s:string, f:IFormatProvider, result:byref<ParseValueType>) =
+            try
+                result <- ParseValueType.Parse(s)
+                true
+            with _ ->
+                result <- Unchecked.defaultof<_>
+                false
+and private ParseValueType_T1 = ParseTypeConverter<ParseValueType>
 
 [<Serializable>]
 [<CLIMutable>]
