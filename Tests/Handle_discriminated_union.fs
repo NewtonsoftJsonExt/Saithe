@@ -32,8 +32,8 @@ type ParseValueType =
         with _ ->
             result <- Unchecked.defaultof<_>
             false
-and internal ParseValueType_T1 = ParseTypeConverter<ParseValueType>
-and internal ParseValueType_T2 = ParseTypeJsonConverter<ParseValueType>
+and private ParseValueType_T1 = ParseTypeConverter<ParseValueType>
+and private ParseValueType_T2 = ParseTypeJsonConverter<ParseValueType>
 
 
 [<Serializable>]

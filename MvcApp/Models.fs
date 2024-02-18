@@ -42,7 +42,7 @@ type CustomerId =
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
-and internal CustomerId_T1 = ParseTypeConverter<CustomerId>
+and private CustomerId_T1 = ParseTypeConverter<CustomerId>
 
 [<Struct>]
 [<TypeConverter(typeof<ProductId_T1>)>]
@@ -60,7 +60,7 @@ type ProductId =
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
-and internal ProductId_T1 = ParseTypeConverter<ProductId>
+and private ProductId_T1 = ParseTypeConverter<ProductId>
 
 [<Struct>]
 [<TypeConverter(typeof<OrderId_T1>)>]
@@ -78,7 +78,7 @@ type OrderId =
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
-and internal OrderId_T1 = ParseTypeConverter<OrderId>
+and private OrderId_T1 = ParseTypeConverter<OrderId>
 
 type Customer = {Id:CustomerId; FirstName:string ; LastName:string; Version:int}
 

@@ -24,7 +24,7 @@ with
             with _ ->
                 result <- Unchecked.defaultof<_>
                 false
-and internal ParseValueType_T1 = ParseTypeConverter<ParseValueType>
+and private ParseValueType_T1 = ParseTypeConverter<ParseValueType>
 
 [<Serializable>]
 [<CLIMutable>]
